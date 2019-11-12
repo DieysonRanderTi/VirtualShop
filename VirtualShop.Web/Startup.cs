@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using VirtualShop.Repositorio.Contexto;
 
 namespace VirtualShop.Web
 {
@@ -12,7 +14,10 @@ namespace VirtualShop.Web
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder();
+            builder.AddJsonFile("config.json", optional:false, reloadOnChange: true);
+
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -21,6 +26,12 @@ namespace VirtualShop.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            var connectionString = Configuration.GetConnectionString("MySqlConnection");
+
+            services.AddDbContext<VirtualShopContexto>(option =>
+                    option.UseMySql(connectionString,
+                            m => m.MigrationsAssembly("VirtualShop.Repositorio")));
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

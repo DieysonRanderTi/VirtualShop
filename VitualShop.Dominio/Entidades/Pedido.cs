@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using VitualShop.Dominio.Entidades.ObjetoDeValor;
 
 namespace VitualShop.Dominio.Entidades
 {
-    public class Pedido
+    public class Pedido: Entidade
     {
         public int Id { get; set; }
         public DateTime DataPedido { get; set; }
@@ -20,5 +21,19 @@ namespace VitualShop.Dominio.Entidades
         public FormaPagamento FormaPagamento { get; set; }
 
         public ICollection<ItemPedido> ItensPedido { get; set; }
+
+        public override void Validate()
+        {
+            LimparMensagemValidacao();
+
+            if (!ItensPedido.Any())
+                AdicionarCritica("Erro: Pedido não pode ficar sem Itens!.");
+
+            if (string.IsNullOrEmpty(Cep))
+                AdicionarCritica("Erro: Cep deve estar preenchido");
+
+            if (FormaPagamentoId == 0)
+                AdicionarCritica("Erro: Forma de pagamento não informada.");
+        }
     }
 }
