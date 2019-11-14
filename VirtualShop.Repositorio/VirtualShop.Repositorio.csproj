@@ -13,8 +13,4 @@
     <ProjectReference Include="..\VitualShop.Dominio\VitualShop.Dominio.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Config\" />
-  </ItemGroup>
-
 </Project>

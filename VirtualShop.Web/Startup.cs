@@ -27,11 +27,11 @@ namespace VirtualShop.Web
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            var connectionString = Configuration.GetConnectionString("MySqlConnection");
+            var connectionString = Configuration.GetConnectionString("VirtualShopDB");
 
             services.AddDbContext<VirtualShopContexto>(option =>
-                    option.UseMySql(connectionString,
-                            m => m.MigrationsAssembly("VirtualShop.Repositorio")));
+                    option.UseLazyLoadingProxies()
+                          .UseMySql(connectionString, m => m.MigrationsAssembly("VirtualShop.Repositorio")));
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

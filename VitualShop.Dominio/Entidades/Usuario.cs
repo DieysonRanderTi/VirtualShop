@@ -11,7 +11,7 @@ namespace VitualShop.Dominio.Entidades
         public string SobreNome { get; set; }
 
 
-        public ICollection<Pedido> Pedidos {get; set;}
+        public virtual ICollection<Pedido> Pedidos {get; set;}
 
         public override void Validate()
         {
@@ -20,6 +20,12 @@ namespace VitualShop.Dominio.Entidades
 
             if (string.IsNullOrEmpty(Senha))
                 AdicionarCritica("Senha não informada.");
+
+            if (string.IsNullOrEmpty(Nome))
+                AdicionarCritica("Nome não foi informado.");
+
+            if (string.IsNullOrEmpty(SobreNome))
+                AdicionarCritica("Sobre nome não foi informado.");
         }
     }
 }

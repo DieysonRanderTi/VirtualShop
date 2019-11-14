@@ -11,6 +11,9 @@ namespace VitualShop.Dominio.Entidades
         public int Id { get; set; }
         public DateTime DataPedido { get; set; }
         public int UsuarioId { get; set; }
+
+        public virtual Usuario Usuario{ get; set; }
+
         public DateTime DataPrevisaoEntrega { get; set; }
         public string Cep { get; set; }
         public string Estado { get; set; }
