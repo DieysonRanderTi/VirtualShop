@@ -34,10 +34,8 @@ namespace VirtualShop.Repositorio.Config
                 .HasMaxLength(50);
 
             builder
-                .Property(u => u.Pedidos)
-                .IsRequired();
-                
-
+                .HasMany(u => u.Pedidos)
+                .WithOne(p => p.Usuario);
         }
 
     }

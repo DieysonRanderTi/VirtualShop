@@ -42,6 +42,8 @@ namespace VirtualShop.Repositorio.Config
                 .IsRequired()
                 .HasMaxLength(50);
 
+       
+
         }
     }
 }

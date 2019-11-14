@@ -1,7 +1,7 @@
 {
   "ConnectionStrings": {
     "SqlServerConnection": "",
-    "VirtualShopDB": "server=localhost;uid=root;pwd=12345;database=VirtualShopDB"
+    "VirtualShopDB": "server=localhost;uid=root;pwd=adminadmin;database=VirtualShopDB"
 
   }
   

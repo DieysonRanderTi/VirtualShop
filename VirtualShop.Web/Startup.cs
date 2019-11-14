@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VirtualShop.Repositorio.Contexto;
+using VirtualShop.Repositorio.Repositorios;
+using VitualShop.Dominio.Contratos;
 
 namespace VirtualShop.Web
 {
@@ -32,6 +34,10 @@ namespace VirtualShop.Web
             services.AddDbContext<VirtualShopContexto>(option =>
                     option.UseLazyLoadingProxies()
                           .UseMySql(connectionString, m => m.MigrationsAssembly("VirtualShop.Repositorio")));
+
+            //Injeção de Dependecia
+            services.AddScoped<IProdutoRepositorio, ProdutoRepositorio>();
+
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

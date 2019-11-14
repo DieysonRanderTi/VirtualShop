@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using VirtualShop.Repositorio.Contexto;
 using VitualShop.Dominio.Contratos;
 
 namespace VirtualShop.Repositorio.Repositorios
@@ -8,38 +9,45 @@ namespace VirtualShop.Repositorio.Repositorios
     public class BaseRepositorio<TEntity> : IBaseRepositorio<TEntity> where TEntity : class
     {
 
-        public BaseRepositorio()
+        protected readonly VirtualShopContexto VirtualShopContexto;
+
+
+        public BaseRepositorio(VirtualShopContexto virtualShopContexto)
         {
+            VirtualShopContexto = virtualShopContexto;
 
         }
         public void Adicionar(TEntity entity)
         {
-            throw new NotImplementedException();
+            VirtualShopContexto.Set<TEntity>().Add(entity);
+            VirtualShopContexto.SaveChanges();
         }
 
         public void Atualizar(TEntity entity)
         {
-            throw new NotImplementedException();
+            VirtualShopContexto.Set<TEntity>().Update(entity);
+            VirtualShopContexto.SaveChanges();
         }
 
         public TEntity ObterPorId(int id)
         {
-            throw new NotImplementedException();
+            return VirtualShopContexto.Set<TEntity>().Find(id);
         }
 
         public IEnumerable<TEntity> ObterTodos()
         {
-            throw new NotImplementedException();
+            return VirtualShopContexto.Set<TEntity>().ToList();
         }
 
         public void Remover(TEntity entity)
         {
-            throw new NotImplementedException();
+            VirtualShopContexto.Remove(entity);
+            VirtualShopContexto.SaveChanges();
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            VirtualShopContexto.Dispose();
         }
     }
 }
